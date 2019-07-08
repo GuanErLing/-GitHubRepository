@@ -3,16 +3,33 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import Layout from '@/layout'
+
 export const constallRoutes = [
   {
     path: '/login',
+    name: 'Login',
     component: () => import('@/views/login/index')
-  },
+  },  
+
+  // { 
+  //   path: '/',
+  //   name: 'HelloWorld',
+  //   component: () => import('@/components/HelloWorld')
+  // },
+
   {
     path: '/',
-    name: 'HelloWorld',
-    component: () => import('@/components/HelloWorld')
-  }
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
+    }]
+  },
+  
 ]
 
 const createRouter = () => new Router({
